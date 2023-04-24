@@ -1,4 +1,4 @@
-package cc.coopersoft.hsr.camunda.rest;
+package cc.coopersoft.cloud.camunda.rest;
 
 import java.io.IOException;
 import java.util.ArrayList;

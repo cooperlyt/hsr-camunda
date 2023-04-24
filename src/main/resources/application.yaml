@@ -15,6 +15,11 @@ management:
     web.exposure.include: env,health,info,metrics
 
 camunda.bpm:
+  eventing:
+    execution: true
+    task: true
+    history: false
+    skippable: true
   historyLevel: audit
   database:
     schema-update: drop-create
@@ -98,9 +103,23 @@ spring:
           destination: topic-process-create
           content-type: application/json
           group: group-camunda
+        processChangeChannel-out-0:
+          destination: topic-process-change
+          content-type: application/json
+          group: group-camunda
+
       rocketmq:
         binder:
           nameServer: namesrv:9876
+        bindings:
+          processChangeChannel-out-0:
+            producer:
+              group: group-camunda
+              transactionListener: processStatusChangeTransactionListener
+              producerType: Trans
+              sendMessageTimeout: 60000
+
+
 
 
   jersey:

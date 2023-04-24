@@ -8,10 +8,10 @@
     <artifactId>hsr-camunda</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <modules>
-        <module>process-common</module>
-        <module>camunda</module>
-    </modules>
+<!--    <modules>-->
+<!--        <module>process-common</module>-->
+<!--        <module>camunda</module>-->
+<!--    </modules>-->
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -185,7 +185,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <mainClass>cc.coopersoft.hsr.camunda.Application</mainClass>
+                    <mainClass>cc.coopersoft.hsr.cc.coopersoft.cloud.camunda.Application</mainClass>
                 </configuration>
             </plugin>
         </plugins>

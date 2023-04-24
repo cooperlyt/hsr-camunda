@@ -1,4 +1,4 @@
-package cc.coopersoft.hsr.camunda;
+package cc.coopersoft.cloud.camunda;
 
 import org.camunda.bpm.spring.boot.starter.annotation.EnableProcessApplication;
 import org.springframework.boot.SpringApplication;

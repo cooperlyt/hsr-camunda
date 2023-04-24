@@ -1,9 +1,9 @@
-package cc.coopersoft.hsr.camunda;
+package cc.coopersoft.cloud.camunda;
 
-import cc.coopersoft.hsr.camunda.rest.AudienceValidator;
-import cc.coopersoft.hsr.camunda.rest.KeycloakAuthenticationFilter;
-import cc.coopersoft.hsr.camunda.rest.RestApiSecurityConfigurationProperties;
-import cc.coopersoft.hsr.camunda.sso.KeycloakLogoutHandler;
+import cc.coopersoft.cloud.camunda.rest.AudienceValidator;
+import cc.coopersoft.cloud.camunda.rest.KeycloakAuthenticationFilter;
+import cc.coopersoft.cloud.camunda.rest.RestApiSecurityConfigurationProperties;
+import cc.coopersoft.cloud.camunda.sso.KeycloakLogoutHandler;
 import org.camunda.bpm.engine.IdentityService;
 import org.camunda.bpm.webapp.impl.security.auth.ContainerBasedAuthenticationFilter;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
@@ -149,7 +149,7 @@ public class CamundaSecurityConfig {
 
     FilterRegistrationBean filterRegistration = new FilterRegistrationBean();
     filterRegistration.setFilter(new ContainerBasedAuthenticationFilter());
-    filterRegistration.setInitParameters(Collections.singletonMap("authentication-provider", "cc.coopersoft.hsr.camunda.sso.KeycloakAuthenticationProvider"));
+    filterRegistration.setInitParameters(Collections.singletonMap("authentication-provider", "cc.coopersoft.cloud.camunda.sso.KeycloakAuthenticationProvider"));
     filterRegistration.setOrder(101); // make sure the filter is registered after the Spring Security Filter Chain
     filterRegistration.addUrlPatterns("/app/*");
     return filterRegistration;

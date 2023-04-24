@@ -1,4 +1,4 @@
-package cc.coopersoft.hsr.camunda.sso;
+package cc.coopersoft.cloud.camunda.sso;
 
 import lombok.extern.slf4j.Slf4j;
 

@@ -28,7 +28,7 @@
         <bpmn:flowNodeRef>Gateway_04rcnn2</bpmn:flowNodeRef>
       </bpmn:lane>
     </bpmn:laneSet>
-    <bpmn:userTask id="Activity_0uru4zn" name="初审">
+    <bpmn:userTask id="Activity_0uru4zn" name="初审" camunda:candidateGroups="camunda-project-license-first">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:outputParameter name="approval">${task_approval}</camunda:outputParameter>
@@ -74,7 +74,7 @@
       <bpmn:incoming>Flow_0yqv7dl</bpmn:incoming>
       <bpmn:outgoing>Flow_1tey8d8</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:serviceTask id="Activity_0jjm1a3" name="驳回" camunda:class="cc.coopersoft.hsr.camunda.delegate.WorkRejectDelegate">
+    <bpmn:serviceTask id="Activity_0jjm1a3" name="驳回" camunda:class="cc.coopersoft.cloud.camunda.delegate.WorkRejectDelegate">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="Input_1u8q6bu" />
@@ -102,7 +102,7 @@
       <bpmn:outgoing>Flow_15k794q</bpmn:outgoing>
       <bpmn:outgoing>Flow_1hamzm9</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:serviceTask id="Activity_0j1h6h8" name="制证" camunda:class="cc.coopersoft.hsr.camunda.delegate.WorkValidDelegate">
+    <bpmn:serviceTask id="Activity_0j1h6h8" name="制证" camunda:class="cc.coopersoft.cloud.camunda.delegate.WorkValidDelegate">
       <bpmn:incoming>Flow_1hamzm9</bpmn:incoming>
       <bpmn:outgoing>Flow_07rvzmo</bpmn:outgoing>
     </bpmn:serviceTask>
