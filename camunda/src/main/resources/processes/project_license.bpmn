@@ -2,9 +2,10 @@
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_1lhq1ck" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.9.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.18.0">
   <bpmn:collaboration id="Collaboration_14mc9d3">
     <bpmn:extensionElements />
-    <bpmn:participant id="Participant_1ax7cfp" name="预销售许可" processRef="Process_06smuaw" />
+    <bpmn:participant id="Participant_1ax7cfp" name="预销售许可" processRef="process_project_license" />
   </bpmn:collaboration>
-  <bpmn:process id="Process_06smuaw" isExecutable="true">
+  <bpmn:process id="process_project_license" name="预售许可证" isExecutable="true" camunda:versionTag=" ">
+    <bpmn:extensionElements />
     <bpmn:laneSet id="LaneSet_1700jcv">
       <bpmn:lane id="Lane_0cw8jos" name="初审">
         <bpmn:flowNodeRef>Activity_0uru4zn</bpmn:flowNodeRef>
@@ -28,7 +29,17 @@
       </bpmn:lane>
     </bpmn:laneSet>
     <bpmn:userTask id="Activity_0uru4zn" name="初审">
-      <bpmn:extensionElements />
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:outputParameter name="approval">${task_approval}</camunda:outputParameter>
+        </camunda:inputOutput>
+        <camunda:formData>
+          <camunda:formField id="task_approval" label="初审通过" type="boolean" defaultValue="true">
+            <camunda:properties />
+            <camunda:validation />
+          </camunda:formField>
+        </camunda:formData>
+      </bpmn:extensionElements>
       <bpmn:incoming>Flow_0e3gdzw</bpmn:incoming>
       <bpmn:outgoing>Flow_1y89whv</bpmn:outgoing>
     </bpmn:userTask>
