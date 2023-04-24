@@ -1,4 +1,4 @@
-package org.camunda.bpm.extension.keycloak.showcase.rest;
+package cc.coopersoft.hsr.camunda.rest;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -63,7 +63,7 @@ public class KeycloakAuthenticationFilter implements Filter {
 		} else {
 			throw new ServletException("Invalid authentication request token");
 		}
-        if (StringUtils.isEmpty(userId)) {
+        if (!StringUtils.hasText(userId)) {
         	throw new ServletException("Unable to extract user-name-attribute from token");
         }
 

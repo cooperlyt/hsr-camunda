@@ -1,0 +1,105 @@
+logging:
+  level:
+    com.netflix: DEBUG
+    org.springframework.web: DEBUG
+    org.springframework.security: DEBUG
+    cc.coopersoft: DEBUG
+
+server:
+  port: 8080
+  servlet.context-path: /camunda
+
+management:
+  health.probes.enabled: true
+  endpoints:
+    web.exposure.include: env,health,info,metrics
+
+camunda.bpm:
+  historyLevel: audit
+  database:
+    schema-update: drop-create
+    type: mariadb
+#  webapp:
+#    index-redirect-enabled: true
+  authorization:
+    enabled: false
+  run:
+    cors:
+      enabled: true
+      allowed-origins: "*"
+  filter:
+    create: All tasks
+  webapp.application-path:
+
+keycloak:
+  url.auth: ${KEYCLOAK_URL_AUTH:https://192.168.1.21:8443}
+  url.token: ${KEYCLOAK_URL_TOKEN:https://192.168.1.21:8443}
+  url.plugin: ${KEYCLOAK_URL_TOKEN:https://192.168.1.21:8443}
+  client.id: ${KEYCLOAK_CLIENT_ID:camunda-identity-service}
+  client.secret: ${KEYCLOAK_CLIENT_SECRET:7Osuidv7klOGg80FruUrm6bDFvg4SnQr}
+
+plugin.identity.keycloak:
+  keycloakIssuerUrl: ${keycloak.url.plugin}/realms/house-sale
+  keycloakAdminUrl: ${keycloak.url.plugin}/admin/realms/house-sale
+  clientId: ${keycloak.client.id}
+  clientSecret: ${keycloak.client.secret}
+  useEmailAsCamundaUserId: false
+  useUsernameAsCamundaUserId: true
+  useGroupPathAsCamundaGroupId: true
+  administratorGroupName: camunda-admin
+  disableSSLCertificateValidation: true
+
+rest.security:
+  enabled: true
+  provider: keycloak
+  required-audience: camunda-rest-api
+
+spring:
+  jersey:
+    applicationPath: /engine-rest
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${keycloak.url.auth}/realms/house-sale
+          jwk-set-uri: ${keycloak.url.token}/realms/house-sale/protocol/openid-connect/certs
+      client:
+        registration:
+          keycloak:
+            provider: keycloak
+            client-id: ${keycloak.client.id}
+            client-secret: ${keycloak.client.secret}
+            authorization-grant-type: authorization_code
+            redirect-uri: "{baseUrl}/{action}/oauth2/code/{registrationId}"
+            scope: openid, profile, email
+        provider:
+          keycloak:
+            issuer-uri: ${keycloak.url.auth}/realms/house-sale
+            authorization-uri: ${keycloak.url.auth}/realms/house-sale/protocol/openid-connect/auth
+            user-info-uri: ${keycloak.url.auth}/realms/house-sale/protocol/openid-connect/userinfo
+            token-uri: ${keycloak.url.token}/realms/house-sale/protocol/openid-connect/token
+            jwk-set-uri: ${keycloak.url.token}/realms/house-sale/protocol/openid-connect/certs
+            # set user-name-attribute one of:
+            # - sub                -> default; using keycloak ID as camunda user ID
+            # - email              -> useEmailAsCamundaUserId=true
+            # - preferred_username -> useUsernameAsCamundaUserId=true
+            user-name-attribute: preferred_username
+  datasource:
+    testWhileIdle: "true"
+    validationQuery: "SELECT 1"
+    url: "jdbc:mariadb://192.168.1.21:3306/camunda?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=false&nullDatabaseMeansCurrent=true&nullCatalogMeansCurrent=true"
+    username: "root"
+    password: "5257mq"
+    driver-class-name: "org.mariadb.jdbc.Driver"
+#  jpa:
+#    database: "MYSQL"
+#    show-sql: "false"
+#    hibernate:
+#      naming:
+#        physical-strategy: "org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl"
+#    properties:
+#      hibernate:
+#        ddl-auto: "none"
+#        enable_lazy_load_no_trans: true
+#        dialect: "org.hibernate.dialect.MySQL5Dialect"

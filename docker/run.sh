@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 
 
-[ -z $CONSULSERVER_HOST ] && CONSULSERVER_HOST=$(cat /opt/config/ip)
-echo "********************************************************"
-echo "Waiting for the consul server to start on port $CONSULSERVER_HOST : $CONSULSERVER_PORT"
-echo "********************************************************"
-./wait-for-it.sh -t 0 $CONSULSERVER_HOST:$CONSULSERVER_PORT -- echo "******* Consul Server has started"
+#[ -z $CONSULSERVER_HOST ] && CONSULSERVER_HOST=$(cat /opt/config/ip)
+#echo "********************************************************"
+#echo "Waiting for the consul server to start on port $CONSULSERVER_HOST : $CONSULSERVER_PORT"
+#echo "********************************************************"
+#./wait-for-it.sh -t 0 $CONSULSERVER_HOST:$CONSULSERVER_PORT -- echo "******* Consul Server has started"
 
 echo "********************************************************"
 echo "Starting @project.build.finalName@ Service with $(hostname -I | cut -d' ' -f1):$SERVER_PORT - $PROFILE"

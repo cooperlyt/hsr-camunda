@@ -1,4 +1,4 @@
-package cc.coopersoft.hsr.camunda;
+package cc.coopersoft.hsr.camunda.plugin;
 
 import org.camunda.bpm.extension.keycloak.plugin.KeycloakIdentityProviderPlugin;
 import org.springframework.boot.context.properties.ConfigurationProperties;

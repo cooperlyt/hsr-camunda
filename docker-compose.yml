@@ -1,86 +1,19 @@
 version: '3'
 services:
 
-  consul:
-    image: consul:latest
-    command: agent -server -bootstrap -ui -node=node1 -client=0.0.0.0
-    ports:
-      - "8500:8500"
-
-  gateway:
-    image: coopersoft/hsr-gateway:2.1.7-SNAPSHOT
-    ports:
-      - "5555:5555"
-    environment:
-      PROFILE: "default"
-      SERVER_PORT: "5555"
-      CONSULSERVER_PORT: 8500
-      CONSULSERVER_HOST: consul
-      TZ: Asia/Shanghai
-    depends_on:
-      - consul
-    links:
-      - consul:consul
-
-  dictionary:
-    image: coopersoft/dictionary:2.1.8-snapshot
-    expose:
-      - 80
-    environment:
-      PROFILE: "dev"
-      SERVER_PORT: 80
-      CONSULSERVER_PORT: 8500
-      CONSULSERVER_HOST: consul
-      DB_URL: "r2dbc:mariadb://192.168.1.21:3306/dictionary?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=false&allowMultiQueries=true"
-      DB_USERNAME: "root"
-      DB_PWD: "5257mq"
-      TZ: Asia/Shanghai
-    depends_on:
-      - consul
-    links:
-      - consul:consul
-
-
-  work:
-    image: coopersoft/hsr-work:2.1.8-snapshot
-    expose:
-      - 80
-    environment:
-      PROFILE: "dev"
-      SERVER_PORT: 80
-      CONSULSERVER_PORT: 8500
-      CONSULSERVER_HOST: consul
-      DB_URL: "r2dbc:mariadb://192.168.1.21:3306/work?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=false&allowMultiQueries=true"
-      DB_USERNAME: "root"
-      DB_PWD: "5257mq"
-      JWT_ISS: https://192.168.1.21:8443/realms/house-sale
-      MQ_ADDR: 192.168.1.21:9876
-      TZ: Asia/Shanghai
-    depends_on:
-      - consul
-    links:
-      - consul:consul
-
-  corp:
-    image: coopersoft/hsr-corp:2.1.8-snapshot
+  camunda:
+    image: coopersoft/hsr-camunda:1.0-SNAPSHOT
     ports:
       - "19005:19005"
     environment:
-      PROFILE: "dev"
+      PROFILE: "default"
       SERVER_PORT: "19005"
       CONSULSERVER_PORT: 8500
       CONSULSERVER_HOST: consul
-      DB_URL: "r2dbc:mariadb://192.168.1.21:3306/corp?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=false&allowMultiQueries=true"
+      DB_URL: "jdbc:mariadb://192.168.1.21:3306/camunda?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=false&allowMultiQueries=true"
       DB_USERNAME: "root"
       DB_PWD: "5257mq"
       JWT_ISS: https://192.168.1.21:8443/realms/house-sale
       MQ_ADDR: 192.168.1.21:9876
-      ELASTICSEARCH_URIS: http://192.168.1.21:9200
-      ELASTICSEARCH_PWD: ""
-      ELASTICSEARCH_USERNAME: ""
       TZ: Asia/Shanghai
-    depends_on:
-      - consul
-    links:
-      - consul:consul
 

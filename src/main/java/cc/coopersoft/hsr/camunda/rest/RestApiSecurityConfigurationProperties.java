@@ -1,4 +1,4 @@
-package org.camunda.bpm.extension.keycloak.showcase.rest;
+package cc.coopersoft.hsr.camunda.rest;
 
 import javax.validation.constraints.NotEmpty;
 
