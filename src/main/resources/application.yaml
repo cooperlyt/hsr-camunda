@@ -106,7 +106,7 @@ spring:
       bindings:
         processCreateChannel-in-0:
           #RocketMQ Topic
-          destination: topic-process-create
+          destination: topic-work-create
           content-type: application/json
           group: group-camunda
         processChangeChannel-out-0:

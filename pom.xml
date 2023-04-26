@@ -7,6 +7,10 @@
     <groupId>cc.coopersoft</groupId>
     <artifactId>hsr-camunda</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <modules>
+        <module>camunda</module>
+    </modules>
 
 
     <properties>
